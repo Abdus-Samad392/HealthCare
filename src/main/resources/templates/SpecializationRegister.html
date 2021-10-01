@@ -25,6 +25,9 @@
       .row {
         padding-bottom: 10px;
       }
+     /* .errorClass{
+     	border: 2px solid red;
+     } */
     </style>
   </head>
   <body>
@@ -36,7 +39,7 @@
           </h1>
         </div>
         <div class="card-body">
-          <form th:action="@{/specialization/register}">
+          <form id="specForm" th:action="@{/specialization/save}" method="post">
             <div class="row">
               <div class="col-3">
                 <h3>
@@ -127,7 +130,11 @@
             </div>
           </form>
         </div>
+        <div class="card-footer bg-info" th:if="${registrationConfirmation!=null}" >
+        	<h5 class="text-white" th:text="${registrationConfirmation}"></h5>
+        </div>
       </div>
     </div>
+    <script th:src="@{/js/spec_validate.js}"></script>
   </body>
 </html>
