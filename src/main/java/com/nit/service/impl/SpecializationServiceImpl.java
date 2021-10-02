@@ -19,4 +19,13 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		return "Specialization Registered With id :"+spec.getId();
 	}
 
+	@Override
+	public boolean isSpecCodeExist(String specCode) {
+		return repo.getSpecCodeCount(specCode)>0;
+	}
+	
+	@Override
+	public boolean isSpecNameExist(String specName) {
+		return repo.getSpecNameCount(specName)>0;
+	}
 }
