@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 	function validate_specCode() {
 		var specCodeLength = $("#specCode").val();
-		var specCodeExpression = /^[A-Z]{3,6}$/;
+		var specCodeExpression = /^[A-Z]{3,10}$/;
 		if (specCodeLength == '') {
 			$("#specCodeError").show();
 			$("#specCode").css("border", "2px solid red");
@@ -25,9 +25,13 @@ $(document).ready(function() {
 			specCodeError = false;
 		}
 		else {
+			var id=0;
+			if($("#specId").val()!=undefined){
+				id=$("#specId").val();
+			}
 			$.ajax({
 				url:'checkSpecCode',
-				data:{"specCode":specCodeLength},
+				data:{"specCode":specCodeLength,"id":id},
 				success:function(res){
 					if(res!=''){
 						$("#specCodeError").show();
@@ -65,10 +69,14 @@ $(document).ready(function() {
 		}
 
 		else {
+			var id=0;
+			if($("#specId").val()!=undefined){
+				id=$("#specId").val();
+			}
 			
 			$.ajax({
 				url:'checkSpecName',
-				data:{"specName":specNameLength},
+				data:{"specName":specNameLength,"id":id},
 				success:function(res){
 					if(res!=''){
 						$("#specNameError").show();

@@ -11,4 +11,8 @@ public interface ISpecializationService {
 	boolean isSpecNameExist(String specName);
 	List<Specialization> getAllSpecialization();
 	Specialization getOneSpecialization(Long id);
+	boolean isSpecCodeWithIdExist(String specCode,Long id);
+	boolean isSpecNameWithIdExist(String specName,Long id);
+	String updateSpecialization(Specialization spec);
+	String deleteSpecializationById(Long id);
 }

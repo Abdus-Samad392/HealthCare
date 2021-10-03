@@ -45,12 +45,16 @@
                     <a th:href="@{/specialization/editPage(id=${spec.id})}" class="btn btn-danger">EDIT <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </td>
                 <td>
-                    <a th:href="@{/specialization/delete(id=${spec.id})}" class="btn btn-danger">DELETE <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                    <a th:href="@{/specialization/delete(id=${spec.id})}" onclick="return confirm('Are You Sure You Want To Delete?')" class="btn btn-danger">DELETE <i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
           </table>
         </div>
+        <div class="card-footer bg-info" th:if="${message!=null}">
+        	<h5 class="text-white" th:text="${message}"></h5>
+        </div>
       </div>
     </div>
+    <h3 class="text-primary text-center"><a th:href="@{/specialization/excelReport}">Get Excel Report</a></h3>
   </body>
 </html>

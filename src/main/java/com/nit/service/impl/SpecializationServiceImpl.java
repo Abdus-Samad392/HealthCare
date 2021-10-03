@@ -49,4 +49,34 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		}
 		
 	}
+	
+	@Override
+	public boolean isSpecCodeWithIdExist(String specCode, Long id) {
+		return repo.getSpecCodeCountWithId(specCode, id)>0;
+	}
+	
+	@Override
+	public boolean isSpecNameWithIdExist(String specName, Long id) {
+		return repo.getSpecNameCountWithId(specName, id)>0;
+	}
+	
+	@Override
+	public String updateSpecialization(Specialization spec) {
+		String resultMessage="";
+		Optional<Specialization> opt=repo.findById(spec.getId());
+		if(opt.isPresent()) {
+			repo.save(spec);
+			resultMessage="Record With id :"+spec.getId()+" updated";
+		}else {
+			throw new SpecializationNotFoundException("Record With id :"+spec.getId()+" not found");
+		}
+		
+		return resultMessage;
+	}
+	
+	@Override
+	public String deleteSpecializationById(Long id) {
+		repo.deleteById(id);
+		return "Record With id "+id+" Deleted";
+	}
 }

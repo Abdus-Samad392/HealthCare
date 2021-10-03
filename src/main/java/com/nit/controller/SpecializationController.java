@@ -8,15 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nit.entity.Specialization;
 import com.nit.exception.SpecializationNotFoundException;
 import com.nit.service.ISpecializationService;
+import com.nit.view.SpecializationExcelView;
 
 @Controller
 @RequestMapping("/specialization")
@@ -39,9 +40,12 @@ public class SpecializationController {
 	
 	@GetMapping("/checkSpecCode")
 	@ResponseBody
-	public String validateDuplicateSpecCode(@RequestParam String specCode) {
+	public String validateDuplicateSpecCode(@RequestParam String specCode,@RequestParam Long id) {
 		String duplicateSpecCode="";
-		if(service.isSpecCodeExist(specCode)) {
+		if(id==0 && service.isSpecCodeExist(specCode)) {
+			duplicateSpecCode="Specialization Code Already Exist,Choose Any Other";
+			return duplicateSpecCode;
+		}else if(id!=0 && service.isSpecCodeWithIdExist(specCode, id)){
 			duplicateSpecCode="Specialization Code Already Exist,Choose Any Other";
 			return duplicateSpecCode;
 		}else {
@@ -51,12 +55,16 @@ public class SpecializationController {
 	
 	@GetMapping("/checkSpecName")
 	@ResponseBody
-	public String validateDuplicateSpecName(@RequestParam String specName) {
+	public String validateDuplicateSpecName(@RequestParam String specName,@RequestParam Long id) {
 		String duplicateSpecName="";
-		if(service.isSpecNameExist(specName)) {
+		if(id==0 && service.isSpecNameExist(specName)) {
 			duplicateSpecName="Specialization Name Already Exist";
 			return duplicateSpecName;
-		}else {
+		}else if(id!=0 && service.isSpecNameWithIdExist(specName, id)) {
+			duplicateSpecName="Specialization Name Already Exist";
+			return duplicateSpecName;
+		}
+		else {
 			return duplicateSpecName;
 		}
 	}
@@ -69,7 +77,7 @@ public class SpecializationController {
 	}
 	
 	@GetMapping("/editPage")
-	public String loadEditPageWithData(@RequestParam Long id,Model model) {
+	public String loadEditPageWithData(@RequestParam Long id,Model model,RedirectAttributes attrs) {
 		String page="";
 		try {
 			Specialization spec=service.getOneSpecialization(id);
@@ -77,9 +85,40 @@ public class SpecializationController {
 			page="SpecializationEdit";
 		}catch(SpecializationNotFoundException e) {
 			e.printStackTrace();
-			model.addAttribute("message", e.getMessage());
+			attrs.addFlashAttribute("message", e.getMessage());
 			page="redirect:all";
 		}
 		return page;
+	}
+	
+	@PostMapping("/edit")
+	public String specializationEdit(@ModelAttribute Specialization spec,RedirectAttributes attrs) {
+		String view="";
+		try {
+			String resultMessage=service.updateSpecialization(spec);
+			attrs.addFlashAttribute("message", resultMessage);
+			view="redirect:all";
+		}catch(SpecializationNotFoundException e) {
+			e.printStackTrace();
+			attrs.addFlashAttribute("message",e.getMessage());
+			view="redirect:all";
+		}
+		return view;
+	}
+	
+	@GetMapping("/delete")
+	public String specializationDelete(@RequestParam Long id,RedirectAttributes attrs) {
+		String resultMessage=service.deleteSpecializationById(id);
+		attrs.addFlashAttribute("message", resultMessage);
+		return "redirect:all";
+	}
+	
+	@GetMapping("/excelReport")
+	public ModelAndView specializationExcelReport() {
+		ModelAndView model=new ModelAndView();
+		model.setView(new SpecializationExcelView());
+		List<Specialization> list=service.getAllSpecialization();
+		model.addObject("specs", list);
+		return model;
 	}
 }
