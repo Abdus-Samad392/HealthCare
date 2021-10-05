@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.Transient;
+import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -28,7 +30,7 @@ public class Doctor {
 	private String docName;
 	@Column(name="doc_email_col",nullable = false,unique = true, length = 40)
 	private String docEmailId;
-	@ManyToOne(targetEntity = Specialization.class,cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "spec_id_fk")
 	private Specialization docSpecialization;
 	@Column(name="doc_address_col",nullable = false,length = 250)
@@ -41,4 +43,5 @@ public class Doctor {
 	private String docNote;
 	@Column(name="doc_photoloc_col",nullable = false)
 	private String docPhotoLoc;
+	
 }

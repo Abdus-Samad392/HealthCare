@@ -1,6 +1,7 @@
 package com.nit.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nit.entity.Specialization;
 
@@ -15,4 +16,5 @@ public interface ISpecializationService {
 	boolean isSpecNameWithIdExist(String specName,Long id);
 	String updateSpecialization(Specialization spec);
 	String deleteSpecializationById(Long id);
+	Map<Long, String> fetchSpecIdAndSpecName();
 }

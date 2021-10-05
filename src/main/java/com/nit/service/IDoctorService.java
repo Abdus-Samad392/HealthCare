@@ -1,5 +1,17 @@
 package com.nit.service;
 
+import java.util.List;
+
+import com.nit.entity.Doctor;
+
 public interface IDoctorService {
 
+	String registerDoctor(Doctor doctor);
+	List<Doctor> findAllDoctors();
+	boolean isEmailIdExist(String docEmailId);
+	boolean isMobileNoExist(Long docMobileNo);
+	boolean isEmailIdWithIdExist(String docEmailId,Long id);
+	boolean isMobileNoWithIdExist(Long docMobileNo,Long id);
+	Doctor getOneDoctor(Long id);
+	
 }

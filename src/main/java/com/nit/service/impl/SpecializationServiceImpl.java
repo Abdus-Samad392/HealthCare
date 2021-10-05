@@ -1,7 +1,9 @@
 package com.nit.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,5 +80,11 @@ public class SpecializationServiceImpl implements ISpecializationService {
 	public String deleteSpecializationById(Long id) {
 		repo.deleteById(id);
 		return "Record With id "+id+" Deleted";
+	}
+	
+	@Override
+	public Map<Long, String> fetchSpecIdAndSpecName() {
+		List<Object[]> list=repo.getSpecIdAndSpecName();
+		return list.stream().collect(Collectors.toMap(ob->(Long)ob[0], ob->(String)ob[1]));
 	}
 }
