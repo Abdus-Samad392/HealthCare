@@ -1,0 +1,149 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .row {
+        padding-bottom: 10px;
+      }
+      input[type="radio"]{
+          width: 20px;
+          height: 20px;
+      }
+    </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h1 class="text-white text-center"><strong>Doctor Edit Page</strong></h1>
+                </div>
+                <div class="card-body">
+                    <form id="docForm" th:action="@{/doctor/edit}" method="POST" th:object="${doctor}">
+                        <input type="hidden" th:field="*{id}" id="docId"/>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docName">Doctor Name ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <input type="text" th:field="*{docName}" id="docName" class="form-control form-control-lg" placeholder="Enter Your Name">
+                            </div>
+                            <div class="col-4">
+                                <span id="docNameError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docEmailId">Email Id ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <input type="email" th:field="*{docEmailId}" id="docEmailId" class="form-control form-control-lg" placeholder="xyz@gmail.com">
+                            </div>
+                            <div class="col-4">
+                                <span id="docEmailIdError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docSpecialization">Specialization ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <select name="docSpecialization.id" th:field="*{docSpecialization}" id="docSpecialization" class="form-control form-control-lg">
+                                    <option value="">--SELECT--</option>
+                                    <option th:each="spec:${specs}" th:value="${spec.key}" th:text="${spec.value}"></option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <span id="docSpecializationError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docAddress">Doctor Address ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <textarea th:field="*{docAddress}" id="docAddress" class="form-control form-control-lg" placeholder="Enter Your Address"></textarea>
+                            </div>
+                            <div class="col-4">
+                                <span id="docAddressError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docMobileNo">Mobile No ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" th:field="*{docMobileNo}" id="docMobileNo" class="form-control form-control-lg" placeholder="Enter Mobile Number">
+                            </div>
+                            <div class="col-4">
+                                <span id="docMobileNoError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docGender1">Gender ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <input type="radio" th:field="*{docGender}" id="docGender1" value="Male"> <b>Male <i class="fa fa-male fa-2x" aria-hidden="true"></i></b>&nbsp;&nbsp;
+                                <input type="radio" th:field="*{docGender}" id="docGender2" value="Female"> <b>Female <i class="fa fa-female fa-2x" aria-hidden="true"></i></b>
+                            </div>
+                            <div class="col-4">
+                                <span id="docGenderError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docNote">Doctor Note ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <textarea th:field="*{docNote}" id="docNote" class="form-control form-control-lg" placeholder="Write Some Note"></textarea>
+                            </div>
+                            <div class="col-4">
+                                <span id="docNoteError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <h3><strong><label for="docPhotoLoc">Choose Your Photo ::</label></strong></h3>
+                            </div>
+                            <div class="col-5">
+                                <input type="file" name="fileOb" id="fileOb" class="form-control-file">
+                            </div>
+                            <div class="col-4">
+                                <span id="docPhotoLocError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+
+                            </div>
+                            <div class="col-8">
+                                <button type="submit" title="Update" class="btn btn-success">Submit <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script th:src="@{/js/doc_validate.js}"></script>
+    </body>
+    </html>

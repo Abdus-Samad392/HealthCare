@@ -69,11 +69,14 @@ public class DoctorController {
 		return duplicateMobileNo;
 	}
 	
+	
+	
 	@GetMapping("/editPage")
 	public String launchEditPage(@RequestParam Long id,Model model,RedirectAttributes attrs) {
 		String page="";
 		try {
 			model.addAttribute("doctor", docService.getOneDoctor(id));
+			model.addAttribute("specs", specService.fetchSpecIdAndSpecName());
 			page="DoctorEdit";
 		}catch(DoctorNotFoundException e) {
 			e.printStackTrace();
@@ -82,4 +85,6 @@ public class DoctorController {
 		}
 		return page;
 	}
+	
+	
 }

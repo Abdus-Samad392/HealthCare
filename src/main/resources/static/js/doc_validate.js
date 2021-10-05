@@ -56,8 +56,8 @@ $(document).ready(function(){
             docEmailIdError=false;
         }else{
 			var id=0;
-			if($("#id").val()!=undefined){
-				id=$("#id").val();
+			if($("#docId").val()!=undefined){
+				id=$("#docId").val();
 			}
             $.ajax({
                 url:'checkDocEmailId',
@@ -127,8 +127,8 @@ $(document).ready(function(){
             docMobileNoError=false;
         }else{
 			var id=0;
-			if($("#id").val()!=undefined){
-				id=$("#id").val();
+			if($("#docId").val()!=undefined){
+				id=$("#docId").val();
 			}
 			$.ajax({
 				url:'checkDocMobileNo',
