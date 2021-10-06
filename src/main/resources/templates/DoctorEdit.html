@@ -67,7 +67,7 @@
                                 <h3><strong><label for="docSpecialization">Specialization ::</label></strong></h3>
                             </div>
                             <div class="col-5">
-                                <select name="docSpecialization.id" th:field="*{docSpecialization}" id="docSpecialization" class="form-control form-control-lg">
+                                <select name="docSpecialization.id"  th:field="*{docSpecialization}" id="docSpecialization" class="form-control form-control-lg">
                                     <option value="">--SELECT--</option>
                                     <option th:each="spec:${specs}" th:value="${spec.key}" th:text="${spec.value}"></option>
                                 </select>
@@ -127,6 +127,7 @@
                             </div>
                             <div class="col-5">
                                 <input type="file" name="fileOb" id="fileOb" class="form-control-file">
+                                <input type="hidden" th:field="*{docPhotoLoc}">
                             </div>
                             <div class="col-4">
                                 <span id="docPhotoLocError"></span>

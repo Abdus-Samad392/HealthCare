@@ -62,4 +62,31 @@ public class DoctorServiceImpl implements IDoctorService {
 		}
 		
 	}
+	
+	@Override
+	public String updateDoctor(Doctor doctor) {
+		String result="";
+		Optional<Doctor> opt=repo.findById(doctor.getId());
+		if(opt.isPresent()) {
+			repo.save(doctor);
+			result="Doctor is Updated";
+		}else {
+			throw new DoctorNotFoundException("Doctor With id :"+doctor.getId()+" Not Found");
+		}
+		return result;
+		
+	}
+	
+	@Override
+	public String deleteDoctor(Long id) {
+		String result="";
+		Optional<Doctor> opt=repo.findById(id);
+		if(opt.isPresent()) {
+			repo.deleteById(id);
+			result="Doctor With id :"+id+" Deleted";
+		}else {
+			throw new DoctorNotFoundException("Doctor With Id :"+id+" Not Found");
+		}
+		return result;
+	}
 }

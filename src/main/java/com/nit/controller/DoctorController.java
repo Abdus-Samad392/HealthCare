@@ -86,5 +86,31 @@ public class DoctorController {
 		return page;
 	}
 	
+	@PostMapping("/edit")
+	public String editDoctor(@ModelAttribute Doctor doctor,RedirectAttributes attrs) {
+		String view="";
+		String result="";
+		try {
+			result=docService.updateDoctor(doctor);
+			attrs.addFlashAttribute("message", result);
+		}catch(DoctorNotFoundException e) {
+			e.printStackTrace();
+			attrs.addFlashAttribute("message", e.getMessage());
+		}
+		view="redirect:all";
+		return view;
+	}
 	
+	@GetMapping("/delete")
+	public String deleteDoctor(@RequestParam Long id,RedirectAttributes attrs) {
+		String result="";
+		try {
+			result=docService.deleteDoctor(id);
+			attrs.addFlashAttribute("message",result);
+		}catch(DoctorNotFoundException e) {
+			e.printStackTrace();
+			attrs.addFlashAttribute("message", e.getMessage());
+		}
+		return "redirect:all";
+	}
 }

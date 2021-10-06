@@ -13,5 +13,7 @@ public interface IDoctorService {
 	boolean isEmailIdWithIdExist(String docEmailId,Long id);
 	boolean isMobileNoWithIdExist(Long docMobileNo,Long id);
 	Doctor getOneDoctor(Long id);
+	String updateDoctor(Doctor doctor);
+	String deleteDoctor(Long id);
 	
 }

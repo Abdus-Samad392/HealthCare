@@ -15,7 +15,7 @@ $(document).ready(function(){
     var docMobileNoError=false;
     var docGenderError=false;
     var docNoteError=false;
-    var docPhotoLocError=false;
+    var docPhotoLocError=true;
 
     function vaildate_docName(){
         var docName=$("#docName").val();
@@ -183,18 +183,22 @@ $(document).ready(function(){
     }
 
     function validate_docPhotoLoc(){
-        var docPhotoLoc=$("#fileOb").val();
-        if(docPhotoLoc==''){
-            $("#docPhotoLocError").show();
-            $("#docPhotoLocError").html("<h5><strong>* Choose One Photo</strong></h5>");
-            $("#docPhotoLocError").css("color","red");
-            $("#fileOb").css("border","2px solid red");
-            docPhotoLocError=false;
-        }else{
-            $("#docPhotoLocError").hide();
-            $("#fileOb").css("border","");
-            docPhotoLocError=true;
+		var id=$("#docId").val();
+	    var docPhotoLoc=$("#fileOb").val();
+        if(id==undefined){
+	        if(docPhotoLoc==''){
+	            $("#docPhotoLocError").show();
+	            $("#docPhotoLocError").html("<h5><strong>* Choose One Photo</strong></h5>");
+	            $("#docPhotoLocError").css("color","red");
+	            $("#fileOb").css("border","2px solid red");
+	            docPhotoLocError=false;
+       		 }
         }
+        	if(docPhotoLoc!=''){
+	            $("#docPhotoLocError").hide();
+	            $("#fileOb").css("border","");
+	            docPhotoLocError=true;
+            }
     }
     
     $("#docName").keyup(function(){
@@ -226,15 +230,14 @@ $(document).ready(function(){
     })
 
     $("#fileOb").change(function(){
-        validate_docPhotoLoc();
-         if(docPhotoLocError){
+		validate_docPhotoLoc();
+        if(docPhotoLocError){
            upload_doc_image();
       }
     })
     
     function upload_doc_image(){
 		 var docPhoto=document.getElementById("fileOb");
-            alert(docPhoto);
             var form=new FormData();
             form.append("image",docPhoto.files[0]);
             var inputs={
