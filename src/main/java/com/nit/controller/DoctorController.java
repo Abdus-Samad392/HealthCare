@@ -1,6 +1,9 @@
 package com.nit.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,12 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nit.entity.Doctor;
 import com.nit.exception.DoctorNotFoundException;
+import com.nit.mail.DoctorRegisteredMailSender;
 import com.nit.service.IDoctorService;
 import com.nit.service.ISpecializationService;
+import com.nit.view.DoctorExcelView;
 
 @Controller
 @RequestMapping("/doctor")
@@ -24,6 +30,8 @@ public class DoctorController {
 	private IDoctorService docService;
 	@Autowired
 	private ISpecializationService specService; 
+	@Autowired
+	private DoctorRegisteredMailSender mailSender;
 	
 	@GetMapping("/register")
 	public String launchRegisterPage(Model model) {
@@ -35,6 +43,15 @@ public class DoctorController {
 	public String saveDoctor(@ModelAttribute Doctor doctor,RedirectAttributes attrs) {
 		String message=docService.registerDoctor(doctor);
 		System.out.println("Doctor Photo Loc ::"+doctor.getDocPhotoLoc());
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				mailSender.send(doctor.getDocEmailId(), null, null, "SUCCESS", message, new ClassPathResource("/static/excel/DOCTORS.xlsx") );
+				
+			}
+			
+		}).start();
 		attrs.addFlashAttribute("message", message);
 		return "redirect:register";
 	}
@@ -112,5 +129,14 @@ public class DoctorController {
 			attrs.addFlashAttribute("message", e.getMessage());
 		}
 		return "redirect:all";
+	}
+	
+	@GetMapping("/excelReport")
+	public ModelAndView getExcelReport() {
+		ModelAndView mav=new ModelAndView();
+		mav.setView(new DoctorExcelView());
+		List<Doctor> list=docService.findAllDoctors();
+		mav.addObject("doctors", list);
+		return mav;
 	}
 }
