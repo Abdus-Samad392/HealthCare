@@ -43,15 +43,17 @@ public class DoctorController {
 	public String saveDoctor(@ModelAttribute Doctor doctor,RedirectAttributes attrs) {
 		String message=docService.registerDoctor(doctor);
 		System.out.println("Doctor Photo Loc ::"+doctor.getDocPhotoLoc());
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				mailSender.send(doctor.getDocEmailId(), null, null, "SUCCESS", message, new ClassPathResource("/static/excel/DOCTORS.xlsx") );
-				
-			}
-			
-		}).start();
+		/*
+		 * new Thread(new Runnable() {
+		 * 
+		 * @Override public void run() { mailSender.send(doctor.getDocEmailId(), null,
+		 * null, "SUCCESS", message, new ClassPathResource("/static/excel/DOCTORS.xlsx")
+		 * );
+		 * 
+		 * }
+		 * 
+		 * }).start();
+		 */
 		attrs.addFlashAttribute("message", message);
 		return "redirect:register";
 	}
