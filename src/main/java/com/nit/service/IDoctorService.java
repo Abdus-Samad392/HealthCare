@@ -1,6 +1,7 @@
 package com.nit.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nit.entity.Doctor;
 
@@ -15,5 +16,5 @@ public interface IDoctorService {
 	Doctor getOneDoctor(Long id);
 	String updateDoctor(Doctor doctor);
 	String deleteDoctor(Long id);
-	
+	Map<Long, String> getAllDoctorIdAndName();
 }

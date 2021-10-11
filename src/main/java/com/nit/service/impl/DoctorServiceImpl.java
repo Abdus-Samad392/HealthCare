@@ -1,7 +1,9 @@
 package com.nit.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,5 +90,11 @@ public class DoctorServiceImpl implements IDoctorService {
 			throw new DoctorNotFoundException("Doctor With Id :"+id+" Not Found");
 		}
 		return result;
+	}
+	
+	@Override
+	public Map<Long, String> getAllDoctorIdAndName() {
+		List<Object[]> list=repo.getAllDoctorIdAndName();
+		return list.stream().collect(Collectors.toMap(ob->(Long)ob[0], ob->(String)ob[1]));
 	}
 }

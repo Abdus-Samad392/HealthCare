@@ -1,5 +1,7 @@
 package com.nit.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,6 +18,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 	public Integer getEmailIdCountWithId(String docEmailId,Long id);
 	@Query("select count(docMobileNo) from Doctor where docMobileNo=:docMobileNo and id!=:id")
 	public Integer getMobileNoCountWithId(Long docMobileNo,Long id);
-
+	
+	@Query("select id,docName from Doctor")
+	List<Object[]> getAllDoctorIdAndName();
 
 }
