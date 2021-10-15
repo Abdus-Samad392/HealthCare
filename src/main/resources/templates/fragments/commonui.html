@@ -1,0 +1,56 @@
+<html xmlns:th="https://www.thymeleaf.org/"
+		xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
+<nav  th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <h3 class="text-info">HealthCare</h3>
+  &nbsp;&nbsp;
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      
+      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <b>Specialization</b>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/specialization/all}">See All Specialization</a>
+          <a class="dropdown-item" th:href="@{/specialization/register}">Register Specialization</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <b>Doctor</b>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/doctor/all}">See All Doctor</a>
+          <a class="dropdown-item" th:href="@{/doctor/register}">Register Doctor</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <b>Patient</b>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('ADMIN')">See All Patient</a>
+          <a class="dropdown-item" th:href="@{/patient/register}">Register Patient</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <b>Appointment</b>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/appointment/all}">See All Appointment</a>
+          <a class="dropdown-item" th:href="@{/appointment/register}">Register Appointment</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()" >
+        <b>Logout</b> (<span sec:authentication="name"></span> <span sec:authentication="principal.authorities"></span>)
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</html>

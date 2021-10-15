@@ -8,19 +8,33 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nit.constants.UserRoles;
 import com.nit.entity.Doctor;
+import com.nit.entity.User;
 import com.nit.exception.DoctorNotFoundException;
+import com.nit.password.PasswordGenerator;
 import com.nit.repo.DoctorRepository;
 import com.nit.service.IDoctorService;
+import com.nit.service.IUserService;
 @Service
 public class DoctorServiceImpl implements IDoctorService {
 
 	@Autowired
 	private DoctorRepository repo;
+	@Autowired
+	private IUserService userService;
 	
 	@Override
 	public String registerDoctor(Doctor doctor) {
 		Doctor savedDoctor=repo.save(doctor);
+		if(savedDoctor.getId()!=null) {
+			User user=new User();
+			user.setUserName(doctor.getDocName());
+			user.setEmailId(doctor.getDocEmailId());
+			user.setPassword(PasswordGenerator.getRandomPassword());
+			user.setUserRole(UserRoles.DOCTOR.name());
+			userService.saveUser(user);
+		}
 		return "Doctor is Registered With id :"+savedDoctor.getId();
 	}
 	
