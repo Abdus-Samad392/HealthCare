@@ -3,9 +3,9 @@
 <nav  th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
   <h3 class="text-info">HealthCare</h3>
   &nbsp;&nbsp;
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+  <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
-  </button>
+  </button> -->
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       
@@ -43,6 +43,7 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" th:href="@{/appointment/all}">See All Appointment</a>
           <a class="dropdown-item" th:href="@{/appointment/register}">Register Appointment</a>
+          <a class="dropdown-item" th:href="@{/appointment/view}">View Slots</a>
         </div>
       </li>
       <li class="nav-item">

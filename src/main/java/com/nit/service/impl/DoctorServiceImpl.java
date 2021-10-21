@@ -111,4 +111,9 @@ public class DoctorServiceImpl implements IDoctorService {
 		List<Object[]> list=repo.getAllDoctorIdAndName();
 		return list.stream().collect(Collectors.toMap(ob->(Long)ob[0], ob->(String)ob[1]));
 	}
+	
+	@Override
+	public List<Doctor> findDoctorsBySpecialization(Long specId) {
+		return repo.findDoctorBySpecializationId(specId);
+	}
 }

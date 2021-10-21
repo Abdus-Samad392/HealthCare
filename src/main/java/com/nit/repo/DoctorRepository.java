@@ -21,5 +21,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
 	
 	@Query("select id,docName from Doctor")
 	List<Object[]> getAllDoctorIdAndName();
+	
+	@Query("select doc from Doctor as doc inner join doc.docSpecialization as spec where spec.id=:specId")
+	List<Doctor> findDoctorBySpecializationId(Long specId);
 
 }

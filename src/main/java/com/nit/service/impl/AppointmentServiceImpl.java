@@ -50,4 +50,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
 			throw new AppointmentNotFoundException("Appointment With Id :"+id+" Not Found");
 		}
 	}
+	
+	@Override
+	public List<Object[]> getAppointmentForDoctor(Long id) {
+		return repo.getAppointmentsRelatedToOneDoctor(id);
+	}
 }
