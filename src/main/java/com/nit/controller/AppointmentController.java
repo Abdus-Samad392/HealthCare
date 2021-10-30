@@ -97,8 +97,8 @@ public class AppointmentController {
 	@GetMapping("/view")
 	public String appointmentView(@RequestParam(required = false, defaultValue = "0") Long specId, Model model) {
 		Map<Long, String> map = specService.fetchSpecIdAndSpecName();
-		model.addAttribute("specs", map);
 		List<Doctor> list = null;
+		model.addAttribute("specs", map);
 		String message = null;
 		if (specId <= 0) {
 			list = docService.findAllDoctors();

@@ -137,7 +137,7 @@ $(document).ready(function() {
 
 	function validate_patientMaritalStatus() {
 		var patientMaritalStatus = $("[name='patientMaritalStatus']:checked").length;
-		alert(patientMaritalStatus);
+		//alert(patientMaritalStatus);
 		if (patientMaritalStatus == 0) {
 			$("#patientMaritalStatusError").show();
 			$("#patientMaritalStatusError").html("<h5><strong>* Patient Marital Status is Required</strong></h5>");

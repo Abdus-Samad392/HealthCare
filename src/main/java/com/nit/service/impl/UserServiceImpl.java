@@ -4,6 +4,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -51,5 +53,12 @@ public class UserServiceImpl implements IUserService,UserDetailsService {
 		
 	}
 
+	@Override
+	@Transactional
+	public void updatePassword(String newPassword, Long id) {
+		
+		repo.updatePassword(encoder.encode(newPassword), id);
+		
+	}
 	
 }

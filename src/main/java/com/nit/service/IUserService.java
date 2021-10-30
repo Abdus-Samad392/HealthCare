@@ -8,4 +8,5 @@ public interface IUserService {
 
 	Long saveUser(User user);
 	Optional<User> fetchUserByUserName(String userName);
+	void updatePassword(String newPassword,Long id);
 }

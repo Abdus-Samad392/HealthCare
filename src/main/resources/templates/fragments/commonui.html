@@ -1,7 +1,8 @@
 <html xmlns:th="https://www.thymeleaf.org/"
 		xmlns:sec="https://www.thymeleaf.org/extras/spring-security5">
-<nav  th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <h3 class="text-info">HealthCare</h3>
+
+<nav  th:fragment="navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+  <h3 class="text-info"><strong>HealthCare</strong></h3>
   &nbsp;&nbsp;
   <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -34,22 +35,35 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('ADMIN')">See All Patient</a>
           <a class="dropdown-item" th:href="@{/patient/register}">Register Patient</a>
+          <a class="dropdown-item" th:href="@{/appointment/view}">View Slots</a>
         </div>
       </li>
-      <li class="nav-item dropdown" sec:authorize="hasAuthority('ADMIN')">
+      <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <b>Appointment</b>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" th:href="@{/appointment/all}">See All Appointment</a>
-          <a class="dropdown-item" th:href="@{/appointment/register}">Register Appointment</a>
+          <a class="dropdown-item" th:href="@{/appointment/all}" sec:authorize="hasAuthority('ADMIN')">See All Appointment</a>
+          <a class="dropdown-item" th:href="@{/appointment/register}" sec:authorize="hasAuthority('ADMIN')">Register Appointment</a>
           <a class="dropdown-item" th:href="@{/appointment/view}">View Slots</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/logout}" sec:authorize="isAuthenticated()" >
-        <b>Logout</b> (<span sec:authentication="name"></span> <span sec:authentication="principal.authorities"></span>)
+      <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <b>(<span sec:authentication="name"></span> <span sec:authentication="principal.authorities"></span>)</b>
         </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/user/profile}">My Profile</a>
+          <a class="dropdown-item" th:href="@{/user/update}">Profile Update</a>
+          <a class="dropdown-item" th:href="@{/logout}">Logout</a>
+        </div>
+      </li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/user/home}"><b>Home</b></a>
       </li>
     </ul>
   </div>
