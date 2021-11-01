@@ -46,6 +46,7 @@
           <a class="dropdown-item" th:href="@{/appointment/all}" sec:authorize="hasAuthority('ADMIN')">See All Appointment</a>
           <a class="dropdown-item" th:href="@{/appointment/register}" sec:authorize="hasAuthority('ADMIN')">Register Appointment</a>
           <a class="dropdown-item" th:href="@{/appointment/view}">View Slots</a>
+          <a class="dropdown-item" th:href="@{/appointment/doctor}" sec:authorize="hasAuthority('DOCTOR')">My Appointments</a>
         </div>
       </li>
       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">

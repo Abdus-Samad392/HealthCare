@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.nit.constants.UserRoles;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -30,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers("/patient/register","/patient/save","/user/login").permitAll()
 		.antMatchers("/doctor/**","/specialization/**","/appointment/all","/appointment/register").hasAuthority("ADMIN")
 		.antMatchers("/appointment/view").authenticated()
+		.antMatchers("/appointment/doctor").hasAuthority(UserRoles.DOCTOR.name())
 		.anyRequest().authenticated()
 		.and()
 		.formLogin()

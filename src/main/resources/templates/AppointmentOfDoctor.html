@@ -1,0 +1,54 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+      crossorigin="anonymous"
+    ></script>
+    </head>
+    <body>
+        <div th:replace="fragments/commonui :: navbar"></div>
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h1 class="text-white text-center"><strong>Your Appointment Page</strong></h1>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr class="bg-secondary text-white">
+                            <th><strong>Serial No</strong></th>
+                            <th><strong>Appointment Date</strong></th>
+                            <th><strong>No Of Slots</strong></th>
+                            <th><strong>Consultation Fee</strong></th>
+                            <th><strong>Details</strong></th>
+                        </tr>
+                        <tr th:each="appointment,i:${appointments}">
+                            <td><strong>[[${i.count}]]</strong></td>
+                            <td><strong>[[${appointment.appointmentDate}]]</strong></td>
+                            <td><strong>[[${appointment.noOfSlots}]]</strong></td>
+                            <td><strong>[[${appointment.consultationFee}]]</strong></td>
+                            <td><strong>[[${appointment.appointmentDetails}]]</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    </html>

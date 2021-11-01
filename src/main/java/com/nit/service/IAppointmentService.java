@@ -12,4 +12,5 @@ public interface IAppointmentService {
 	String updateAppointment(Appointment appointment);
 	String deleteAppointment(Long id);
 	List<Object[]> getAppointmentForDoctor(Long id);
+	List<Appointment> getAppointmentOfDoctorByName(String name);
 }

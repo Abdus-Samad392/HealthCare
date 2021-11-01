@@ -1,5 +1,6 @@
 package com.nit.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 
@@ -123,5 +124,12 @@ public class AppointmentController {
 		message="Appointment Details Of Doctor : "+docService.getOneDoctor(id).getDocName();
 		model.addAttribute("message", message);
 		return "AppointmentSlots";
+	}
+	
+	@GetMapping("/doctor")
+	public String getAppointmentByDoctorName(Principal p , Model model) {
+		List<Appointment> list= appService.getAppointmentOfDoctorByName(p.getName());
+		model.addAttribute("appointments", list);
+		return "AppointmentOfDoctor";
 	}
 }
