@@ -87,4 +87,10 @@ public class SpecializationServiceImpl implements ISpecializationService {
 		List<Object[]> list=repo.getSpecIdAndSpecName();
 		return list.stream().collect(Collectors.toMap(ob->(Long)ob[0], ob->(String)ob[1]));
 	}
+	
+	@Override
+	public long getSpecializationCount() {
+		
+		return repo.count();
+	}
 }

@@ -35,7 +35,6 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" th:href="@{/patient/all}" sec:authorize="hasAuthority('ADMIN')">See All Patient</a>
           <a class="dropdown-item" th:href="@{/patient/register}">Register Patient</a>
-          <a class="dropdown-item" th:href="@{/appointment/view}">View Slots</a>
         </div>
       </li>
       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
@@ -45,9 +44,32 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" th:href="@{/appointment/all}" sec:authorize="hasAuthority('ADMIN')">See All Appointment</a>
           <a class="dropdown-item" th:href="@{/appointment/register}" sec:authorize="hasAuthority('ADMIN')">Register Appointment</a>
-          <a class="dropdown-item" th:href="@{/appointment/view}">View Slots</a>
+          <a class="dropdown-item" th:href="@{/appointment/view}" sec:authorize="hasAuthority('PATIENT')">View Slots</a>
           <a class="dropdown-item" th:href="@{/appointment/doctor}" sec:authorize="hasAuthority('DOCTOR')">My Appointments</a>
         </div>
+      </li>
+      <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <b>Slot Request</b>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/slot/all}" sec:authorize="hasAuthority('ADMIN')">See All Slot Request</a>
+          <a class="dropdown-item" th:href="@{/slot/patient}" sec:authorize="hasAuthority('PATIENT')">Slot Request Status</a>
+          <a class="dropdown-item" th:href="@{/slot/doctor}" sec:authorize="hasAuthority('DOCTOR')">My Appointment</a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <b>Document</b>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" th:href="@{/document/show}">Upload Document</a>
+        </div>
+      </li>
+      <li class="nav-item" sec:authorize="isAuthenticated()">
+        <a class="nav-link" th:href="@{/slot/dashboard}">
+          <b>DashBoard</b>
+        </a>
       </li>
       <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

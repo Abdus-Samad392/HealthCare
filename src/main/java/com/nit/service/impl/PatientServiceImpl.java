@@ -78,4 +78,15 @@ public class PatientServiceImpl implements IPatientService {
 			throw new PatientNotFoundException("Patient With Id :"+id+" Not Found");
 		}
 	}
+	
+	@Override
+	public Patient findPatientByName(String name) {
+		return repo.findByPatientName(name);
+	}
+
+	@Override
+	public long getPatientCount() {
+		
+		return repo.count();
+	}
 }

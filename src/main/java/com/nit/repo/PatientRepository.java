@@ -11,4 +11,6 @@ public interface PatientRepository extends JpaRepository<Patient, Long> {
 	Integer getMobileNoCount(Long patientMobileNo);
 	@Query("select count(patientMobileNo) from Patient where patientMobileNo=:patientMobileNo and id!=:id")
 	Integer getMobileNoCountWithId(Long patientMobileNo,Long id);
+	
+	Patient findByPatientName(String patientName);
 }

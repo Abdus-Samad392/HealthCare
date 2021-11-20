@@ -18,4 +18,5 @@ public interface IDoctorService {
 	String deleteDoctor(Long id);
 	Map<Long, String> getAllDoctorIdAndName();
 	List<Doctor> findDoctorsBySpecialization(Long specId);
+	long getDoctorCount();
 }

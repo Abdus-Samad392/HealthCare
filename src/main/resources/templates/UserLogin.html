@@ -48,9 +48,9 @@
                         <div class="col-12">
                             <button type="submit" class="btn btn-success"><h5><strong>Login <i class="fa fa-sign-in fa-lg" aria-hidden="true"></i></strong> </h5></button>
                         </div>
-                        
-                    </div>
+                   </div>
                 </form>
+                <a th:href="@{/user/forgotPwd}" class="text-dark"><b>Forgot Password</b> <i class="fa fa-key fa-lg" aria-hidden="true"></i></a>
             </div>
             <div class="card-footer" th:if="${param.error!=null or param.success!=null or message!=null}">
             	<div th:if="${param.error}">
@@ -64,6 +64,7 @@
             </div>
 
         </div>
+       
     </div>
 </body>
 

@@ -36,7 +36,7 @@
                         <td><h5><strong>[[${app[1]}]]</strong></h5></td>
                         <td><h5><strong>[[${app[2]}]]</strong></h5></td>
                         <td>
-                            <a href="#" class="btn btn-danger py-2"><strong style="font-size: 20px">Book Slot&nbsp;&nbsp;<i class="fa fa-hand-o-right fa-2x" aria-hidden="true"></i></strong></a>
+                            <a th:href="@{/slot/book(id=${app[3]})}" class="btn btn-danger py-2"><strong style="font-size: 20px">Book Slot&nbsp;&nbsp;<i class="fa fa-hand-o-right fa-2x" aria-hidden="true"></i></strong></a>
                         </td>
                     </tr>
                 </table>

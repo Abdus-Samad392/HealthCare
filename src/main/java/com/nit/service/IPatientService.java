@@ -13,4 +13,6 @@ public interface IPatientService {
 	boolean isMobileNoExist(Long patientMobileNo);
 	boolean isMobileNoWithIdExist(Long patientMobileNo,Long id);
 	String deletePatient(Long id);
+	Patient findPatientByName(String name);
+	long getPatientCount();
 }

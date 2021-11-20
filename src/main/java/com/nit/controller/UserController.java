@@ -1,6 +1,7 @@
 package com.nit.controller;
 
 import java.security.Principal;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nit.entity.User;
+import com.nit.password.PasswordGenerator;
 import com.nit.service.IUserService;
 
 @Controller
@@ -62,4 +64,24 @@ public class UserController {
 		return "redirect:login";
 	}
 		
+	@GetMapping("/forgotPwd")
+	public String forgotPasswordLaunchPage() {
+		return "UserForgotPwd";
+	}
+	
+	@GetMapping("/forgot")
+	public String forgotPassword(@RequestParam String username,Model model) {
+		String message="";
+		Optional<User> opt= service.fetchUserByUserName(username);
+		if(opt.isPresent()) {
+			String pwd=PasswordGenerator.getRandomPassword();
+			System.out.println("password : "+pwd);
+			service.updatePassword(pwd, opt.get().getId());
+			message="Password Updated, Check Your Email";
+		}else {
+			message="UserName Not Found";
+		}
+		model.addAttribute("message", message);
+		return "UserForgotPwd";
+	}
 }

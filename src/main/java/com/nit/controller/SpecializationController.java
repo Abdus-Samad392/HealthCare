@@ -18,6 +18,7 @@ import com.nit.entity.Specialization;
 import com.nit.exception.SpecializationNotFoundException;
 import com.nit.service.ISpecializationService;
 import com.nit.view.SpecializationExcelView;
+import com.nit.view.SpecializationPDFView;
 
 @Controller
 @RequestMapping("/specialization")
@@ -120,5 +121,15 @@ public class SpecializationController {
 		List<Specialization> list=service.getAllSpecialization();
 		model.addObject("specs", list);
 		return model;
+	}
+	
+	
+	@GetMapping("/pdfReport")
+	public ModelAndView specializationPDFReport() {
+		ModelAndView mav=new ModelAndView();
+		mav.setView(new SpecializationPDFView());
+		List<Specialization> list=service.getAllSpecialization();
+		mav.addObject("specs", list);
+		return mav;
 	}
 }

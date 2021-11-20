@@ -17,4 +17,5 @@ public interface ISpecializationService {
 	String updateSpecialization(Specialization spec);
 	String deleteSpecializationById(Long id);
 	Map<Long, String> fetchSpecIdAndSpecName();
+	long getSpecializationCount();
 }

@@ -1,0 +1,161 @@
+<html xmlns:th="https://www.thymeleaf.org/">
+<head>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+	crossorigin="anonymous"></script>
+
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>
+<style>
+.row {
+	padding-bottom: 10px;
+}
+</style>
+</head>
+
+<body>
+	<div th:replace="fragments/commonui :: navbar"></div>
+	<div class="container-fluid">
+		<div class="card">
+			<div class="card-header bg-primary">
+				<h1 class="text-center text-white">
+					<strong>Document Upload Page</strong>
+				</h1>
+			</div>
+			<div class="card-body">
+				<form id="docId" th:action="@{/document/upload}" method="POST"
+					enctype="multipart/form-data">
+					<div class="row">
+						<div class="col-3">
+							<h3>
+								<strong><label for="docName">Select Your File
+										::</label></strong>
+							</h3>
+						</div>
+						<div class="col-5">
+							<input type="file" name="docName" id="docName"
+								class="form-control form-control-lg">
+						</div>
+						<div class="col-4">
+							<span id="docNameError"></span>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-3"></div>
+						<div class="col-2">
+							<button type="submit" class="btn btn-primary">
+								<b>Upload</b> <i class="fa fa-upload" aria-hidden="true"></i>
+							</button>
+						</div>
+						<div class="col-7">
+							<button type="reset" class="btn btn-danger">
+								<b>Reset</b> <i class="fa fa-refresh" aria-hidden="true"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="card-footer" th:if="${documents!=null}">
+				<table class="table table-hover">
+					<tr class="bg-secondary text-center text-white">
+						<th>Document Name</th>
+						<th>Operations</th>
+					</tr>
+					<tr th:each="document:${documents}" class="text-center">
+						<td>[[${document[1]}]]</td>
+						<td>
+							<a th:href="@{/document/download(id=${document[0]})}" class="btn btn-success"><b>Download</b> <i class="fa fa-download" aria-hidden="true"></i></a>&nbsp;&nbsp;
+							<a th:href="@{/document/delete(id=${document[0]})}" class="btn btn-danger"><b>Delete</b> <i class="fa fa-trash-o" aria-hidden="true"></i></a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document)
+				.ready(
+						function() {
+							$("#docNameError").hide();
+							var docNameError = false;
+
+							function validate_documentNameError() {
+								var docNameVal = $("#docName").val();
+								//alert(docNameVal);
+								if (docNameVal == '') {
+									$("#docNameError").show();
+									$("#docNameError")
+											.html(
+													"<h5><strong>* Choose One Photo</strong></h5>");
+									$("#docNameError").css("color", "red");
+									$("#docName")
+											.css("border", "2px solid red");
+									docNameError = false;
+								}
+							}
+
+							function validate_fileSize_fileFormat(ob) {
+								var fsize = ob.size;
+								var fname = ob.name;
+								var fext = fname.substring(fname
+										.lastIndexOf(".") + 1);
+								console.log(fsize + " " + fname + " " + fext);
+								var ext = [ "pdf", "jpeg", "png", "jpg" ];
+								if ($.inArray(fext, ext) == -1) {
+									$("#docNameError").show();
+									$("#docNameError")
+											.html(
+													"<h5><strong>* Allowed Files Are .pdf, .jpeg, .png, .jpg</strong></h5>");
+									$("#docNameError").css("color", "red");
+									$("#docName")
+											.css("border", "2px solid red");
+									docNameError = false;
+								} else if (fsize < (1024 * 100)) {
+									$("#docNameError").show();
+									$("#docNameError")
+											.html(
+													"<h5><strong>* Minimum File Size Should be 100KB</strong></h5>");
+									$("#docNameError").css("color", "red");
+									$("#docName")
+											.css("border", "2px solid red");
+									docNameError = false;
+								} else if (fsize > 1024 * 1024) {
+									$("#docNameError").show();
+									$("#docNameError")
+											.html(
+													"<h5><strong>* Maximum File Size Should be 1MB</strong></h5>");
+									$("#docNameError").css("color", "red");
+									$("#docName")
+											.css("border", "2px solid red");
+									docNameError = false;
+								} else {
+									$("#docNameError").hide();
+									$("#docName").css("border", "");
+									docNameError = true;
+								}
+							}
+
+							$("#docName").change(function() {
+								validate_fileSize_fileFormat(this.files[0]);
+							})
+
+							$("#docId").submit(function() {
+								validate_documentNameError();
+								if (docNameError) {
+									return true;
+								} else {
+									return false;
+								}
+							})
+						})
+	</script>
+</body>
+</html>

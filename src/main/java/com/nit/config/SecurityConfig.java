@@ -29,9 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/patient/register","/patient/save","/user/login").permitAll()
+		.antMatchers("/patient/register","/patient/save","/user/login","/user/forgotPwd","/user/forgot").permitAll()
 		.antMatchers("/doctor/**","/specialization/**","/appointment/all","/appointment/register").hasAuthority("ADMIN")
-		.antMatchers("/appointment/view").authenticated()
+		.antMatchers("/appointment/view").hasAuthority(UserRoles.PATIENT.name())
 		.antMatchers("/appointment/doctor").hasAuthority(UserRoles.DOCTOR.name())
 		.anyRequest().authenticated()
 		.and()
